@@ -124,35 +124,39 @@ export default function CSVUpload() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto" data-testid="csv-upload-card">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+    <div className="w-full max-w-2xl mx-auto card-modern rounded-2xl p-6" data-testid="csv-upload-card">
+      <div className="mb-6">
+        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
           <Upload className="w-5 h-5" />
           Upload CSV File
-        </CardTitle>
-        <CardDescription>
+        </h3>
+        <p className="text-gray-300 text-sm">
           Upload your traffic data CSV file for analysis with high-accuracy ML models
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        
+        </p>
+      </div>
+      
+      <div className="space-y-6">
         {/* CSV Format Instructions */}
-        <Alert data-testid="format-instructions">
-          <Info className="h-4 w-4" />
-          <AlertDescription>
-            <strong>Required CSV columns:</strong> Date, Hour, Location, Queue_Density (or Queue), 
-            Stop_Density (or StopDensity), Accidents_Reported (or Accidents), Fatalities
-          </AlertDescription>
-        </Alert>
+        <div className="glass-card p-4 rounded-xl border border-blue-500/30" data-testid="format-instructions">
+          <div className="flex items-start gap-3">
+            <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-blue-400 font-medium text-sm">Required CSV columns:</p>
+              <p className="text-gray-300 text-sm mt-1">
+                Date, Hour, Location, Queue_Density (or Queue), Stop_Density (or StopDensity), Accidents_Reported (or Accidents), Fatalities
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Upload Area */}
         <div
-          className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-200 ${
+          className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
             dragActive 
-              ? 'border-primary bg-primary/5' 
+              ? 'border-blue-500 bg-blue-500/10' 
               : selectedFile 
-              ? 'border-green-500 bg-green-50 dark:bg-green-950/20' 
-              : 'border-muted-foreground/25 hover:border-muted-foreground/50 hover:bg-muted/20'
+              ? 'border-green-500 bg-green-500/10' 
+              : 'border-gray-600 hover:border-gray-500 hover:bg-white/5'
           }`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -171,15 +175,15 @@ export default function CSVUpload() {
           
           {!selectedFile ? (
             <>
-              <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
               <div className="space-y-2">
-                <p className="text-lg font-medium">
+                <p className="text-lg font-medium text-white">
                   {dragActive ? "Drop your CSV file here" : "Drag and drop your CSV file here"}
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  or <span className="text-primary font-medium">click to browse</span>
+                <p className="text-sm text-gray-400">
+                  or <span className="text-blue-400 font-medium">click to browse</span>
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-gray-500">
                   Maximum file size: 50MB
                 </p>
               </div>
@@ -187,28 +191,34 @@ export default function CSVUpload() {
           ) : (
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-3">
-                <FileText className="w-8 h-8 text-green-600" />
+                <FileText className="w-8 h-8 text-green-400" />
                 <div className="text-left">
-                  <p className="font-medium text-green-700 dark:text-green-400" data-testid="selected-filename">
+                  <p className="font-medium text-green-400" data-testid="selected-filename">
                     {selectedFile.name}
                   </p>
-                  <p className="text-sm text-muted-foreground" data-testid="selected-filesize">
+                  <p className="text-sm text-gray-400" data-testid="selected-filesize">
                     {formatFileSize(selectedFile.size)}
                   </p>
                 </div>
-                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                <div className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full border border-green-500/30">
                   Ready
-                </Badge>
+                </div>
               </div>
               
               {/* Upload Progress */}
               {uploadProgress > 0 && (
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-sm text-gray-300">
                     <span>Upload Progress</span>
                     <span>{uploadProgress}%</span>
                   </div>
-                  <Progress value={uploadProgress} className="h-2" data-testid="upload-progress" />
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                      style={{width: `${uploadProgress}%`}}
+                      data-testid="upload-progress"
+                    ></div>
+                  </div>
                 </div>
               )}
             </div>
@@ -219,10 +229,10 @@ export default function CSVUpload() {
         <div className="flex gap-3">
           {selectedFile && (
             <>
-              <Button
+              <button
                 onClick={handleUpload}
                 disabled={uploadMutation.isPending || uploadProgress > 0}
-                className="flex-1"
+                className="flex-1 btn-glass-primary px-6 py-3 rounded-xl font-semibold"
                 data-testid="button-upload"
               >
                 {uploadMutation.isPending || uploadProgress > 0 ? (
@@ -236,49 +246,62 @@ export default function CSVUpload() {
                     Upload & Analyze
                   </>
                 )}
-              </Button>
-              <Button
-                variant="outline"
+              </button>
+              <button
                 onClick={handleClear}
                 disabled={uploadMutation.isPending || uploadProgress > 0}
+                className="px-6 py-3 glass-card rounded-xl font-semibold text-gray-300 hover:text-white transition-colors"
                 data-testid="button-clear"
               >
                 Clear
-              </Button>
+              </button>
             </>
           )}
         </div>
 
         {/* Status Messages */}
         {uploadMutation.isError && (
-          <Alert variant="destructive" data-testid="upload-error">
-            <XCircle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Upload failed:</strong> {uploadMutation.error instanceof Error ? uploadMutation.error.message : "Unknown error"}
-            </AlertDescription>
-          </Alert>
+          <div className="glass-card p-4 rounded-xl border border-red-500/30" data-testid="upload-error">
+            <div className="flex items-start gap-3">
+              <XCircle className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-red-400 font-medium text-sm">Upload failed</p>
+                <p className="text-gray-300 text-sm mt-1">
+                  {uploadMutation.error instanceof Error ? uploadMutation.error.message : "Unknown error"}
+                </p>
+              </div>
+            </div>
+          </div>
         )}
         
         {uploadMutation.isSuccess && uploadProgress === 100 && (
-          <Alert className="border-green-200 bg-green-50 dark:bg-green-950/20" data-testid="upload-success">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-700 dark:text-green-400">
-              <strong>Success!</strong> Your CSV file has been uploaded and is being processed with ML models. 
-              The dashboard will update automatically when analysis is complete.
-            </AlertDescription>
-          </Alert>
+          <div className="glass-card p-4 rounded-xl border border-green-500/30" data-testid="upload-success">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-green-400 font-medium text-sm">Success!</p>
+                <p className="text-gray-300 text-sm mt-1">
+                  Your CSV file has been uploaded and is being processed with ML models. The dashboard will update automatically when analysis is complete.
+                </p>
+              </div>
+            </div>
+          </div>
         )}
         
         {uploadMutation.isPending && uploadProgress >= 90 && (
-          <Alert data-testid="processing-status">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Processing:</strong> Running high-accuracy Python ML analysis on your data. 
-              This may take a few moments...
-            </AlertDescription>
-          </Alert>
+          <div className="glass-card p-4 rounded-xl border border-blue-500/30" data-testid="processing-status">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-blue-400 font-medium text-sm">Processing</p>
+                <p className="text-gray-300 text-sm mt-1">
+                  Running high-accuracy Python ML analysis on your data. This may take a few moments...
+                </p>
+              </div>
+            </div>
+          </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
