@@ -7,47 +7,43 @@
 
 :root {
   /* Modern Dynamic Color System */
-  --background: 280 15% 98%; /* Light purple-gray */
-  --foreground: 280 25% 8%; /* Very dark purple text */
+  --background: 220 25% 6%; /* Deep dark blue */
+  --foreground: 220 15% 95%; /* Light text */
   --card: 0 0% 100%; /* Pure white cards */
   --card-foreground: 280 25% 8%; /* Dark purple text */
   --popover: 0 0% 100%; /* Pure white */
   --popover-foreground: 280 25% 8%; /* Dark purple text */
   
-  /* Primary Colors - Dynamic Purple System */
-  --primary: 280 85% 65%; /* Vibrant purple */
-  --primary-hover: 280 85% 60%; /* Darker purple hover */
+  /* Primary Colors - Modern Gradient System */
+  --primary: 250 100% 70%; /* Electric blue */
+  --primary-hover: 250 100% 65%; /* Darker blue hover */
   --primary-foreground: 0 0% 100%; /* White text on purple */
   
-  /* Secondary Colors - Dynamic Teal System */
-  --secondary: 180 85% 65%; /* Vibrant teal */
+  /* Secondary Colors - Teal Accent */
+  --secondary: 180 100% 60%; /* Vibrant cyan */
   --secondary-foreground: 0 0% 100%; /* White text on teal */
   
-  /* Muted Colors - Light purple */
-  --muted: 280 15% 95%; /* Light purple background */
-  --muted-foreground: 280 10% 45%; /* Medium purple for subtle text */
+  /* Muted Colors - Dark theme */
+  --muted: 220 25% 12%; /* Dark background */
+  --muted-foreground: 220 15% 65%; /* Light muted text */
   
-  /* Accent Colors - Dynamic Orange System */
-  --accent: 25 85% 65%; /* Vibrant orange */
+  /* Accent Colors - Purple accent */
+  --accent: 280 100% 70%; /* Electric purple */
   --accent-foreground: 0 0% 100%; /* White text */
   
-  /* Modern Color Schemes */
-  --scheme-purple: 280;
-  --scheme-blue: 220;
-  --scheme-teal: 180;
-  --scheme-emerald: 160;
-  --scheme-orange: 25;
-  --scheme-pink: 320;
-  --scheme-indigo: 260;
+  /* Glass morphism variables */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   
   /* Destructive - Keep functional red */
   --destructive: 0 84% 60%; /* Rose #EF4444 */
   --destructive-foreground: 0 0% 100%;
   
   /* Borders & Inputs */
-  --border: 0 0% 90%; /* Light gray border */
-  --input: 0 0% 98%; /* Very light gray input background */
-  --ring: 0 0% 20%; /* Dark gray focus ring */
+  --border: 220 25% 20%; /* Dark border */
+  --input: 220 25% 10%; /* Dark input */
+  --ring: 250 100% 70%; /* Blue focus ring */
   
   /* Traffic Congestion Colors */
   --traffic-green: 158 64% 52%; /* Emerald #10B981 */
@@ -61,6 +57,10 @@
   --chart-4: 24 95% 53%; /* Orange #F97316 */
   --chart-5: 341 75% 51%; /* Additional chart color */
   
+  /* Modern gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(250, 100%, 70%) 0%, hsl(280, 100%, 70%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(180, 100%, 60%) 0%, hsl(200, 100%, 60%) 100%);
+  
   /* Layout */
   --radius: 0.75rem;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -70,29 +70,6 @@
   /* Custom shadows */
   --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.dark {
-  /* Vibrant gradient dark theme */
-  --background: 280 25% 8%; /* Dark purple */
-  --foreground: 280 15% 95%; /* Light purple text */
-  --card: 280 25% 12%; /* Dark purple cards */
-  --card-foreground: 280 15% 95%; /* Light purple text */
-  --popover: 280 25% 12%; /* Dark purple */
-  --popover-foreground: 280 15% 95%; /* Light purple text */
-  --primary: 280 85% 70%; /* Vibrant purple */
-  --primary-foreground: 280 25% 8%; /* Dark text on light */
-  --secondary: 180 85% 70%; /* Vibrant teal */
-  --secondary-foreground: 280 25% 8%; /* Dark text on light */
-  --muted: 280 25% 10%; /* Dark purple */
-  --muted-foreground: 280 15% 65%; /* Medium purple text */
-  --accent: 25 85% 70%; /* Vibrant orange */
-  --accent-foreground: 280 25% 8%; /* Dark text on light */
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 280 25% 20%; /* Purple border */
-  --input: 280 25% 10%; /* Purple input */
-  --ring: 280 85% 70%; /* Purple ring */
 }
 
 @layer base {
@@ -105,18 +82,13 @@
   }
 
   body {
-    @apply font-sans antialiased text-foreground overflow-x-hidden;
-    background: linear-gradient(135deg, 
-      hsl(280, 25%, 95%) 0%, 
-      hsl(280, 30%, 92%) 15%, 
-      hsl(280, 35%, 90%) 30%, 
-      hsl(280, 30%, 88%) 45%, 
-      hsl(280, 25%, 90%) 60%, 
-      hsl(280, 20%, 92%) 75%, 
-      hsl(280, 25%, 95%) 100%);
+    @apply font-sans antialiased text-foreground overflow-x-hidden bg-background;
+    background: radial-gradient(ellipse at top, 
+      hsl(220, 25%, 8%) 0%, 
+      hsl(220, 25%, 6%) 50%, 
+      hsl(220, 30%, 4%) 100%);
     background-attachment: fixed;
     min-height: 100vh;
-    animation: purpleGradientShift 25s ease-in-out infinite;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -125,80 +97,328 @@
 }
 
 @layer components {
+  /* Modern Glassmorphism Components */
   .glass-card {
-    background: rgba(255, 255, 255, 1);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .gradient-bg {
-    background: linear-gradient(135deg, 
-      hsl(220, 25%, 98%) 0%, 
-      hsl(220, 20%, 96%) 25%, 
-      hsl(220, 15%, 94%) 50%, 
-      hsl(220, 20%, 96%) 75%, 
-      hsl(220, 25%, 98%) 100%);
+    background: radial-gradient(ellipse at center, 
+      hsl(220, 25%, 8%) 0%, 
+      hsl(220, 25%, 6%) 50%, 
+      hsl(220, 30%, 4%) 100%);
     background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
   }
 
-  .header-gradient {
-    background: linear-gradient(135deg, 
-      hsl(220, 25%, 98%) 0%, 
-      hsl(220, 20%, 96%) 25%, 
-      hsl(220, 15%, 94%) 50%, 
-      hsl(220, 20%, 96%) 75%, 
-      hsl(220, 25%, 98%) 100%);
-    background-attachment: fixed;
+  .gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
   }
 
-  /* Modern Purple Gradient Backgrounds */
-  .modern-gradient-bg-1 {
-    background: linear-gradient(135deg, 
-      hsl(280, 20%, 96%) 0%, 
-      hsl(280, 25%, 94%) 20%, 
-      hsl(280, 30%, 92%) 40%, 
-      hsl(280, 25%, 90%) 60%, 
-      hsl(280, 20%, 92%) 80%, 
-      hsl(280, 20%, 96%) 100%);
-    background-attachment: fixed;
-    animation: purplePulse 8s ease-in-out infinite;
+  /* Modern Typography */
+  .text-gradient-modern {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-flow 3s ease-in-out infinite;
   }
 
-  .modern-gradient-bg-2 {
-    background: linear-gradient(135deg, 
-      hsl(280, 25%, 94%) 0%, 
-      hsl(280, 30%, 92%) 20%, 
-      hsl(280, 35%, 90%) 40%, 
-      hsl(280, 30%, 88%) 60%, 
-      hsl(280, 25%, 90%) 80%, 
-      hsl(280, 25%, 94%) 100%);
-    background-attachment: fixed;
-    animation: purplePulse 10s ease-in-out infinite;
+  .text-glow {
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.5),
+                 0 0 40px rgba(99, 102, 241, 0.3),
+                 0 0 60px rgba(99, 102, 241, 0.1);
   }
 
-  .modern-gradient-bg-3 {
+  /* Modern Buttons */
+  .btn-glass-primary {
     background: linear-gradient(135deg, 
-      hsl(280, 30%, 92%) 0%, 
-      hsl(280, 35%, 90%) 20%, 
-      hsl(280, 40%, 88%) 40%, 
-      hsl(280, 35%, 86%) 60%, 
-      hsl(280, 30%, 88%) 80%, 
-      hsl(280, 30%, 92%) 100%);
-    background-attachment: fixed;
-    animation: purplePulse 12s ease-in-out infinite;
+      rgba(99, 102, 241, 0.8) 0%, 
+      rgba(139, 92, 246, 0.8) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(99, 102, 241, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
 
-  .modern-gradient-bg-4 {
-    background: linear-gradient(135deg, 
-      hsl(280, 35%, 90%) 0%, 
-      hsl(280, 40%, 88%) 20%, 
-      hsl(280, 45%, 86%) 40%, 
-      hsl(280, 40%, 84%) 60%, 
-      hsl(280, 35%, 86%) 80%, 
-      hsl(280, 35%, 90%) 100%);
-    background-attachment: fixed;
-    animation: purplePulse 14s ease-in-out infinite;
+  .btn-glass-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
   }
+
+  .btn-glass-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-glass-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(99, 102, 241, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-glass-secondary {
+    background: linear-gradient(135deg, 
+      rgba(16, 185, 129, 0.8) 0%, 
+      rgba(6, 182, 212, 0.8) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(16, 185, 129, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glass-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-glass-secondary:hover::before {
+    left: 100%;
+  }
+
+  .btn-glass-secondary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(16, 185, 129, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  /* Modern Navigation */
+  .nav-link-modern {
+    position: relative;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .nav-link-modern::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+    border-radius: 1px;
+  }
+
+  .nav-link-modern:hover::before,
+  .nav-link-modern.active::before {
+    width: 100%;
+  }
+
+  .nav-link-modern:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+  }
+
+  .nav-link-modern.active {
+    color: rgba(255, 255, 255, 1);
+    font-weight: 600;
+  }
+
+  /* Modern Cards */
+  .card-modern {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .card-modern:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-modern:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Animations */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .fade-in-up-delay-1 {
+    animation-delay: 0.2s;
+  }
+
+  .fade-in-up-delay-2 {
+    animation-delay: 0.4s;
+  }
+
+  .fade-in-up-delay-3 {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient-flow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(1deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(-1deg);
+    }
+  }
+
+  /* Particle effects */
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particles::before,
+  .particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(99, 102, 241, 0.6);
+    border-radius: 50%;
+    animation: particle-float 15s linear infinite;
+  }
+
+  .particles::before {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+
+  .particles::after {
+    top: 60%;
+    right: 30%;
+    animation-delay: 7s;
+    background: rgba(16, 185, 129, 0.6);
+  }
+
+  @keyframes particle-float {
+    0% {
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(50px) scale(0);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile responsive improvements */
+  @media (max-width: 768px) {
+    .btn-glass-primary,
+    .btn-glass-secondary {
+      padding: 12px 24px;
+      font-size: 16px;
+    }
+    
+    .text-gradient-modern {
+      font-size: 2.5rem;
+    }
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in-up,
+    .btn-glass-primary,
+    .btn-glass-secondary,
+    .nav-link-modern,
+    .card-modern {
+      animation: none;
+      transition: none;
+    }
+    
+    .gradient-bg::before {
+      animation: none;
+    }
+  }
+}
 
   /* Premium Typography System */
   .font-display {

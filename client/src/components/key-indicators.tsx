@@ -103,96 +103,93 @@ export default function KeyIndicators() {
   ];
 
   return (
-    <section id="indicators" className="py-20 modern-indicators-bg relative">
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="indicators" className="py-20 relative">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black mb-6 text-primary" data-testid="indicators-title">Key Indicators</h2>
-            <p className="text-xl text-muted-foreground" data-testid="indicators-description">
+          <div className="text-center mb-16 fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-modern" data-testid="indicators-title">Key Indicators</h2>
+            <p className="text-xl text-gray-300 mb-8" data-testid="indicators-description">
               Critical traffic statistics computed from comprehensive data analysis
             </p>
-            <div className="mt-8">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  onClick={() => setShowUpload(!showUpload)}
-                  className="modern-action-button-primary px-8 py-3 rounded-xl font-semibold text-lg"
-                  data-testid="button-toggle-upload"
-                >
-                  <Upload className="w-5 h-5 mr-3" />
-                  Upload CSV File
-                </Button>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowUpload(!showUpload)}
+                className="btn-glass-primary px-6 py-3 rounded-xl font-semibold"
+                data-testid="button-toggle-upload"
+              >
+                <Upload className="w-5 h-5 mr-2" />
+                Upload CSV File
+              </button>
 
-                <Button
-                  onClick={handleLoadData}
-                  disabled={loadCSVMutation.isPending}
-                  className="modern-action-button-secondary px-8 py-3 rounded-xl font-semibold text-lg"
-                  data-testid="button-load-data"
-                >
-                  {loadCSVMutation.isPending ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin mr-3" />
-                      Processing CSV Data...
-                    </>
-                  ) : (
-                    <>
-                      <RefreshCw className="w-5 h-5 mr-3" />
-                      Load Sample Data
-                    </>
-                  )}
-                </Button>
-              </div>
-
-              {/* CSV Upload Component */}
-              {showUpload && (
-                <div className="mt-8">
-                  <CSVUpload />
-                </div>
-              )}
-
-              {/* Show error message if loading failed */}
-              {loadCSVMutation.isError && (
-                <div className="mt-3 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
-                  <p className="text-destructive text-sm font-medium">
-                    ❌ Failed to load CSV: {loadCSVMutation.error instanceof Error ? loadCSVMutation.error.message : "Unknown error"}
-                  </p>
-                </div>
-              )}
-
-              {/* Show success message */}
-              {loadCSVMutation.isSuccess && !loadCSVMutation.isPending && (
-                <div className="mt-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                  <p className="text-green-600 dark:text-green-400 text-sm font-medium">
-                    ✅ CSV data loaded successfully! Data has been refreshed.
-                  </p>
-                </div>
-              )}
+              <button
+                onClick={handleLoadData}
+                disabled={loadCSVMutation.isPending}
+                className="btn-glass-secondary px-6 py-3 rounded-xl font-semibold"
+                data-testid="button-load-data"
+              >
+                {loadCSVMutation.isPending ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-5 h-5 mr-2" />
+                    Load Sample Data
+                  </>
+                )}
+              </button>
             </div>
+
+            {/* CSV Upload Component */}
+            {showUpload && (
+              <div className="mt-8 fade-in-up">
+                <CSVUpload />
+              </div>
+            )}
+
+            {/* Status Messages */}
+            {loadCSVMutation.isError && (
+              <div className="mt-4 p-4 glass-card border border-red-500/30 rounded-xl">
+                <p className="text-red-400 text-sm font-medium">
+                  ❌ Failed to load CSV: {loadCSVMutation.error instanceof Error ? loadCSVMutation.error.message : "Unknown error"}
+                </p>
+              </div>
+            )}
+
+            {loadCSVMutation.isSuccess && !loadCSVMutation.isPending && (
+              <div className="mt-4 p-4 glass-card border border-green-500/30 rounded-xl">
+                <p className="text-green-400 text-sm font-medium">
+                  ✅ CSV data loaded successfully! Data has been refreshed.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {indicatorCards.map((card, index) => (
-              <Card
+              <div
                 key={index}
-                className={`modern-indicator-card-${index + 1} p-8 rounded-2xl min-h-[320px] flex flex-col justify-center`}
+                className="card-modern p-8 rounded-2xl min-h-[280px] flex flex-col justify-center group fade-in-up"
+                style={{animationDelay: `${index * 0.2}s`}}
                 data-testid={`indicator-card-${index}`}
               >
-                <CardContent className="p-0">
-                  <div className="text-center">
-                    <div className={`modern-indicator-icon-${index + 1} w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110`}>
-                      <span className="text-4xl">{card.icon}</span>
-                    </div>
-                    <h3 className={`text-4xl font-black mb-3 ${colorMap[card.color].text} transition-colors duration-300`} data-testid={`indicator-value-${index}`}>
-                      {card.value}
-                    </h3>
-                    <p className={`text-xl font-bold mb-4 ${colorMap[card.color].text} transition-colors duration-300`} data-testid={`indicator-title-${index}`}>
-                      {card.title}
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed" data-testid={`indicator-description-${index}`}>
-                      {card.description}
-                    </p>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">{card.icon}</span>
                   </div>
-                </CardContent>
-              </Card>
+                  <h3 className="text-3xl font-bold mb-3 text-white group-hover:text-gradient-modern transition-colors duration-300" data-testid={`indicator-value-${index}`}>
+                    {card.value}
+                  </h3>
+                  <p className="text-lg font-semibold mb-4 text-gray-300" data-testid={`indicator-title-${index}`}>
+                    {card.title}
+                  </p>
+                  <p className="text-gray-400 leading-relaxed text-sm" data-testid={`indicator-description-${index}`}>
+                    {card.description}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>

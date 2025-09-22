@@ -48,13 +48,13 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 modern-nav ${isScrolled ? 'scrolled' : ''}`} data-testid="navigation">
-      <div className="container mx-auto px-4 py-4">
+    <nav className={`fixed top-0 w-full z-50 glass-nav transition-all duration-300 ${isScrolled ? 'backdrop-blur-xl' : ''}`} data-testid="navigation">
+      <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold modern-brand">
-            <span className="gradient-text-primary">Vizag</span>
-            <span className="gradient-text-blue">Traffic</span>
-            <span className="gradient-text-cyan">Pulse</span>
+          <div className="text-2xl font-bold">
+            <span className="text-gradient-modern">Vizag</span>
+            <span className="text-white">Traffic</span>
+            <span className="text-gradient-modern">Pulse</span>
           </div>
           
           <div className="hidden md:flex space-x-8">
@@ -62,8 +62,8 @@ export default function Navigation() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`modern-nav-link ${
-                  activeSection === item.id ? "active" : "text-foreground"
+                className={`nav-link-modern ${
+                  activeSection === item.id ? "active" : ""
                 }`}
                 data-testid={`nav-${item.id}`}
               >
@@ -73,7 +73,7 @@ export default function Navigation() {
           </div>
           
           <button
-            className="md:hidden p-2 modern-menu-toggle"
+            className="md:hidden p-2 glass-card rounded-lg text-white hover:bg-white/10 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             data-testid="mobile-menu-toggle"
           >
@@ -83,14 +83,14 @@ export default function Navigation() {
         
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 modern-mobile-menu p-6">
+          <div className="md:hidden mt-4 glass-card rounded-xl p-6">
             <div className="space-y-2">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left py-3 px-4 modern-mobile-link ${
-                    activeSection === item.id ? "active" : "text-foreground"
+                  className={`block w-full text-left py-3 px-4 rounded-lg transition-all nav-link-modern ${
+                    activeSection === item.id ? "active bg-white/10" : "hover:bg-white/5"
                   }`}
                   data-testid={`mobile-nav-${item.id}`}
                 >
